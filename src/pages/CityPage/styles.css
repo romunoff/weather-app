@@ -1,0 +1,26 @@
+.forecast {
+    margin: 0 auto;
+    width: 768px;
+    border: 1px solid black;
+    padding: 10px 20px;
+}
+
+.forecast__city {
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.forecast__date {
+
+}
+
+.forecast__weather {
+    padding: 10px 0;
+    align-items: center;
+}
+
+.weather__temperature {
+    font-size: 40px;
+    font-weight: bold;
+}
