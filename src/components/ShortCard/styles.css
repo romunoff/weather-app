@@ -1,0 +1,23 @@
+@import "~antd/dist/antd.css";
+
+.list__item {
+    margin-bottom: 10px;
+    border-radius: 20px;
+    font-size: 16px;
+}
+
+.item__header {
+    font-weight: bold;
+}
+
+.item__description {
+    font-size: 14px;
+}
+
+.item__temperature {
+    font-weight: bold;
+}
+
+.item__icon > img {
+    width: 50px;
+}

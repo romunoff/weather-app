@@ -71,7 +71,7 @@ const CityPage = () => {
           <Row justify="space-between">
             {forecastData.list.map(
               (item, index) =>
-                item.dt_txt.includes("12:00:00") && (
+                item.dt_txt.includes("15:00:00") && (
                   <Col key={index}>
                     <DetailCard item={item} />
                   </Col>
