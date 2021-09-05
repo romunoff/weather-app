@@ -4,11 +4,14 @@ import { Card, Col, Row } from "antd";
 import { format } from "date-fns";
 import { DetailCard } from "../../components/DetailCard";
 import "./styles.css";
+import { WeatherChartItem } from "../../components/WeatherChartItem";
 
 const CityPage = () => {
   const { city } = useParams();
-  const [weatherData, setWeatherData] = useState({});
-  const [forecastData, setForecastData] = useState({});
+  const [weatherData, setWeatherData] = useState([]);
+  const [forecastData, setForecastData] = useState([]);
+  const [hourlyForecast, setHourlyForecast] = useState([]);
+  const [maxValue, setMaxValue] = useState();
 
   useEffect(() => {
     fetch(
@@ -21,7 +24,17 @@ const CityPage = () => {
       `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=e009218bddbd2feae58ade5ee4d4c376`
     )
       .then((data) => data.json())
-      .then((data) => setForecastData(data));
+      .then((data) => {
+        setForecastData(data);
+        setHourlyForecast(data.list.slice(0, 8));
+        const max = Math.max.apply(
+          null,
+          data.list
+            .slice(0, 8)
+            .map((item) => Math.abs(Math.round(item.main.temp) - 273))
+        );
+        setMaxValue(max);
+      });
   }, [city]);
 
   return (
@@ -50,8 +63,20 @@ const CityPage = () => {
               </div>
             </Col>
             <Col>
-              <div className="weather__description">
-                {weatherData.weather[0].description}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  height: "100px",
+                }}
+              >
+                {hourlyForecast.map((item, index) => (
+                  <WeatherChartItem
+                    key={index}
+                    value={Math.round(item.main.temp) - 273}
+                    coefficient={50 / maxValue}
+                  />
+                ))}
               </div>
             </Col>
           </Row>
